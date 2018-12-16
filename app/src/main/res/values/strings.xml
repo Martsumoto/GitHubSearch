@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GitHubSearch</string>
+    <string name="pull_requests">Pull Requests</string>
+    <string name="issues">Issues</string>
 </resources>

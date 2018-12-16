@@ -8,13 +8,21 @@
         tools:context=".searchRepository.SearchActivity">
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/listRepositories"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/edtSearchRepository"/>
     <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/edtSearchRepository"/>
+    <TextView
+            android:id="@+id/txtEmptyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/edtSearchRepository"/>
 
 </android.support.constraint.ConstraintLayout>
