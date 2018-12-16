@@ -2,8 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/action_issues"
+            android:icon="@drawable/issue"
             android:title="@string/issues"/>
     <item
             android:id="@+id/action_pull_requests"
+            android:icon="@drawable/pull_request"
             android:title="@string/pull_requests"/>
 </menu>

@@ -7,8 +7,12 @@ import com.google.gson.annotations.SerializedName
 data class Repository(
     @SerializedName("id") private val mId: Int,
     @SerializedName("name") private val mName: String,
+    @SerializedName("description") private val mDescription: String,
     @SerializedName("owner") private val mUser: User
 ) : Parcelable {
+
+    val id
+        get() = mId
 
     val name
         get() = mName
@@ -16,8 +20,12 @@ data class Repository(
     val user
         get() = mUser
 
+    val description
+        get() = mDescription
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readParcelable(User::class.java.classLoader)
     ) {
@@ -26,6 +34,7 @@ data class Repository(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(mId)
         parcel.writeString(mName)
+        parcel.writeString(mDescription)
         parcel.writeParcelable(mUser, flags)
     }
 

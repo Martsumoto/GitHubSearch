@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.marcelokmats.githubsearch.R
-import com.marcelokmats.githubsearch.repositoryDetail.issues.DetailListFragment
 import com.marcelokmats.githubsearch.searchRepository.SearchActivity
 import kotlinx.android.synthetic.main.detail_activity.*
 
@@ -31,8 +30,15 @@ class DetailActivity  : AppCompatActivity() {
                     DetailViewModelFactory(intent.getParcelableExtra(SearchActivity.REPOSITORY)))
                     .get(DetailViewModel::class.java)
         addFragment(DetailListFragment())
+
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        supportActionBar?.title = mDetailViewModel.repository.name
+        supportActionBar?.subtitle = mDetailViewModel.repository.id.toString()
+    }
 
     fun setupBottomNavigationView() {
         bottomNavigationView.setOnNavigationItemSelectedListener {

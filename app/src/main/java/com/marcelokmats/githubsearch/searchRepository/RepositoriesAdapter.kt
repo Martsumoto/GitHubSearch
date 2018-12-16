@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.marcelokmats.githubsearch.R
 import com.marcelokmats.githubsearch.model.Repository
-import kotlinx.android.synthetic.main.repository_list_item.view.*
+import kotlinx.android.synthetic.main.list_item.view.*
 
 class RepositoriesAdapter(val items : List<Repository>, val context: Context, val view: SearchActivityView) :
     RecyclerView.Adapter<RepositoriesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.repository_list_item, parent, false));
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.list_item, parent, false));
     }
 
     override fun getItemCount(): Int {
@@ -21,14 +21,17 @@ class RepositoriesAdapter(val items : List<Repository>, val context: Context, va
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txtName.text = items.get(position).name
+        val name : String = items[position].id.toString() + " - " + items[position].name
+        holder.txtName.text = name
+        holder.txtSecondayText.text = items[position].description
+
 
         holder.root.setOnClickListener { view.onRepositoryClick(items.get(position)) }
     }
 
-
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         val root = view.root
         val txtName = view.txtName
+        val txtSecondayText = view.txtSecondayText
     }
 }

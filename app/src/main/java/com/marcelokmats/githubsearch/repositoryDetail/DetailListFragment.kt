@@ -1,4 +1,4 @@
-package com.marcelokmats.githubsearch.repositoryDetail.issues
+package com.marcelokmats.githubsearch.repositoryDetail
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -11,8 +11,7 @@ import android.view.ViewGroup
 import com.marcelokmats.githubsearch.R
 import com.marcelokmats.githubsearch.model.Issue
 import com.marcelokmats.githubsearch.model.Pull
-import com.marcelokmats.githubsearch.repositoryDetail.DetailActivity
-import com.marcelokmats.githubsearch.repositoryDetail.DetailViewModel
+import com.marcelokmats.githubsearch.repositoryDetail.issues.IssueAdapter
 import com.marcelokmats.githubsearch.repositoryDetail.pulls.PullsAdapter
 import com.marcelokmats.githubsearch.util.ViewUtil
 import kotlinx.android.synthetic.main.list_fragment.*
@@ -48,15 +47,19 @@ class DetailListFragment : Fragment() {
     }
 
     fun populateIssueList(issueList: List<Issue>?) {
+        val sortedList = issueList?.sortedWith(compareBy(Issue::number))
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        recyclerView.adapter = IssueAdapter(issueList ?: emptyList(), this.context!!)
+        recyclerView.adapter = IssueAdapter(sortedList ?: emptyList(),
+            this.context!!
+        )
 
         toggleVisibility(ViewUtil.Type.CONTENT)
     }
 
     fun populatePullList(pullList: List<Pull>?) {
+        val sortedList = pullList?.sortedWith(compareBy(Pull::number))
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        recyclerView.adapter = PullsAdapter(pullList ?: emptyList(), this.context!!)
+        recyclerView.adapter = PullsAdapter(sortedList ?: emptyList(), this.context!!)
 
         toggleVisibility(ViewUtil.Type.CONTENT)
     }

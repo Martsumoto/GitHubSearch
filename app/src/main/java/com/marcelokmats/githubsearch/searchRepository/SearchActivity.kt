@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.view.inputmethod.EditorInfo
 import com.marcelokmats.githubsearch.R
 import com.marcelokmats.githubsearch.model.Repository
 import com.marcelokmats.githubsearch.model.RepositorySearchResult
@@ -24,6 +25,14 @@ class SearchActivity : AppCompatActivity(), SearchActivityView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_activity)
 
+        edtSearchRepository.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                btnSearch.callOnClick()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun onResume() {

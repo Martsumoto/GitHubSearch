@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.marcelokmats.githubsearch.R
 import com.marcelokmats.githubsearch.model.Pull
-import kotlinx.android.synthetic.main.repository_list_item.view.*
+import kotlinx.android.synthetic.main.list_item.view.*
 
 class PullsAdapter(val items : List<Pull>, val context: Context) :
     RecyclerView.Adapter<PullsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.repository_list_item, parent, false));
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.list_item, parent, false));
     }
 
     override fun getItemCount(): Int {
@@ -22,6 +22,7 @@ class PullsAdapter(val items : List<Pull>, val context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.txtName.text = items.get(position).title
+        holder.txtSecondayText.text = items.get(position).number.toString()
 
         //holder.root.setOnClickListener { view.onRepositoryClick(items.get(position)) }
     }
@@ -30,5 +31,6 @@ class PullsAdapter(val items : List<Pull>, val context: Context) :
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         val root = view.root
         val txtName = view.txtName
+        val txtSecondayText = view.txtSecondayText
     }
 }
