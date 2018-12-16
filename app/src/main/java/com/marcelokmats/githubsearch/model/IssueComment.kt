@@ -4,22 +4,17 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-data class Issue(
+data class IssueComment(
     @SerializedName("id") private val mId: Int,
     @SerializedName("user") private val mUser: User,
-    @SerializedName("number") private val mNumber: Long,
-    @SerializedName("title") private val mTitle: String,
     @SerializedName("body") private val mBody: String
 ) : Parcelable {
 
+    val id
+        get() = mId
+
     val user
         get() = mUser
-
-    val number
-        get() = mNumber
-
-    val title
-        get() = mTitle
 
     val body
         get() = mBody
@@ -27,8 +22,6 @@ data class Issue(
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readParcelable(User::class.java.classLoader),
-        parcel.readLong(),
-        parcel.readString(),
         parcel.readString()
     ) {
     }
@@ -36,8 +29,6 @@ data class Issue(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(mId)
         parcel.writeParcelable(mUser, flags)
-        parcel.writeLong(mNumber)
-        parcel.writeString(mTitle)
         parcel.writeString(mBody)
     }
 
@@ -45,12 +36,12 @@ data class Issue(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Issue> {
-        override fun createFromParcel(parcel: Parcel): Issue {
-            return Issue(parcel)
+    companion object CREATOR : Parcelable.Creator<IssueComment> {
+        override fun createFromParcel(parcel: Parcel): IssueComment {
+            return IssueComment(parcel)
         }
 
-        override fun newArray(size: Int): Array<Issue?> {
+        override fun newArray(size: Int): Array<IssueComment?> {
             return arrayOfNulls(size)
         }
     }

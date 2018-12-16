@@ -9,7 +9,7 @@ import com.marcelokmats.githubsearch.R
 import com.marcelokmats.githubsearch.model.Repository
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class RepositoriesAdapter(val items : List<Repository>, val context: Context, val view: SearchActivityView) :
+class RepositoriesAdapter(private val items : List<Repository>, private val context: Context, private val view: SearchView) :
     RecyclerView.Adapter<RepositoriesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1viewType: Int): ViewHolder {
@@ -25,8 +25,7 @@ class RepositoriesAdapter(val items : List<Repository>, val context: Context, va
         holder.txtName.text = name
         holder.txtSecondayText.text = items[position].description
 
-
-        holder.root.setOnClickListener { view.onRepositoryClick(items.get(position)) }
+        holder.root.setOnClickListener { view.onRepositoryClick(items[position]) }
     }
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {

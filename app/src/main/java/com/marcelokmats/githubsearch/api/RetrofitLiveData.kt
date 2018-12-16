@@ -13,6 +13,7 @@ class RetrofitLiveData<T>(private val call: Call<T>) : LiveData<T>(), Callback<T
 
     override fun onFailure(call: Call<T>, t: Throwable) {
         t.stackTrace
+        value = null
     }
 
     override fun onResponse(call: Call<T>, response: Response<T>) {

@@ -18,8 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".repositoryDetail.DetailActivity">
-        </activity>
+        <activity android:name=".repositoryDetail.DetailListActivity"/>
+        <activity android:name=".repositoryDetail.issues.IssueDetailActivity"/>
+        <activity android:name=".repositoryDetail.pulls.PullDetailActivity"/>
     </application>
 
 </manifest>

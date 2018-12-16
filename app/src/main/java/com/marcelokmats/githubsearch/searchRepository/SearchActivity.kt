@@ -11,11 +11,15 @@ import android.view.inputmethod.EditorInfo
 import com.marcelokmats.githubsearch.R
 import com.marcelokmats.githubsearch.model.Repository
 import com.marcelokmats.githubsearch.model.RepositorySearchResult
-import com.marcelokmats.githubsearch.repositoryDetail.DetailActivity
+import com.marcelokmats.githubsearch.repositoryDetail.DetailListActivity
 import com.marcelokmats.githubsearch.util.ViewUtil
 import kotlinx.android.synthetic.main.search_activity.*
 
-class SearchActivity : AppCompatActivity(), SearchActivityView {
+class SearchActivity : AppCompatActivity(), SearchView {
+
+    companion object {
+        const val REPOSITORY = "REPOSITORY"
+    }
 
     private val mSearchViewModel by lazy {
         ViewModelProviders.of(this).get(SearchViewModel::class.java)
@@ -39,6 +43,11 @@ class SearchActivity : AppCompatActivity(), SearchActivityView {
         super.onResume()
 
         this.btnSearch.setOnClickListener { v -> searchRepository(edtSearchRepository.text.toString())}
+
+        mSearchViewModel.getRepositoriesLiveData().observe(this,
+            Observer { value ->
+                updateRepoList(value)
+            })
     }
 
     override fun onRepositoryClick(repository: Repository) {
@@ -50,33 +59,36 @@ class SearchActivity : AppCompatActivity(), SearchActivityView {
     fun searchRepository(repository: String) {
         if (!TextUtils.isEmpty(repository)) {
             toggleVisibility(ViewUtil.Type.PROGRESSBAR)
-            mSearchViewModel.searchRepositories(repository).observe(this,
-                Observer { value ->
-                    updateRepoList(value)
-                })
+
+            mSearchViewModel.setSearchTextValue(repository)
         } else {
             updateRepoList(null)
         }
     }
 
-    fun updateRepoList(searchResult : RepositorySearchResult?) {
-        listRepositories.layoutManager = LinearLayoutManager(this)
-        listRepositories.adapter = RepositoriesAdapter(searchResult?.repositories ?: emptyList(), this, this)
+    private fun updateRepoList(searchResult : RepositorySearchResult?) {
+        if (searchResult?.count ?: 0 > 0) {
+            listRepositories.layoutManager = LinearLayoutManager(this)
+            listRepositories.adapter = RepositoriesAdapter(searchResult?.repositories ?: emptyList(), this, this)
 
-        toggleVisibility(ViewUtil.Type.CONTENT)
+            toggleVisibility(ViewUtil.Type.CONTENT)
+        } else {
+            if (searchResult == null) {
+                txtEmptyList.text = getString(R.string.repository_load_error)
+            } else {
+                txtEmptyList.text = getString(R.string.no_repositories)
+            }
+            toggleVisibility(ViewUtil.Type.ERROR)
+        }
     }
 
-    fun showRepositoryDetail(repository: Repository) {
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(Companion.REPOSITORY, repository)
+    private fun showRepositoryDetail(repository: Repository) {
+        val intent = Intent(this, DetailListActivity::class.java)
+        intent.putExtra(REPOSITORY, repository)
         this.startActivity(intent)
     }
 
-    fun toggleVisibility(type : ViewUtil.Type) {
+    private fun toggleVisibility(type : ViewUtil.Type) {
         ViewUtil.toggleVisibility(listRepositories, progressBar, txtEmptyList, type);
-    }
-
-    companion object {
-        const val REPOSITORY = "REPOSITORY"
     }
 }

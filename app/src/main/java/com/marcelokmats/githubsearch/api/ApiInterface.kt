@@ -1,6 +1,7 @@
 package com.marcelokmats.githubsearch.api
 
 import com.marcelokmats.githubsearch.model.Issue
+import com.marcelokmats.githubsearch.model.IssueComment
 import com.marcelokmats.githubsearch.model.Pull
 import com.marcelokmats.githubsearch.model.RepositorySearchResult
 import retrofit2.Call
@@ -17,4 +18,7 @@ interface ApiInterface {
 
     @GET("repos/{user}/{repo}/pulls")
     fun getPulls(@Path("user") user: String, @Path("repo") repo: String) : Call<List<Pull>>
+
+    @GET("repos/{user}/{repo}/issues/{issueNumber}/comments")
+    fun getIssueComments(@Path("user") user: String, @Path("repo") repo: String, @Path("issueNumber") issueNumber: Long) : Call<List<IssueComment>>
 }

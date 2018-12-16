@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.marcelokmats.githubsearch.R
 import com.marcelokmats.githubsearch.model.Pull
+import com.marcelokmats.githubsearch.repositoryDetail.DetailListView
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class PullsAdapter(val items : List<Pull>, val context: Context) :
+class PullsAdapter(private val items : List<Pull>, private val context: Context, private val view: DetailListView) :
     RecyclerView.Adapter<PullsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1viewType: Int): ViewHolder {
@@ -21,10 +22,10 @@ class PullsAdapter(val items : List<Pull>, val context: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txtName.text = items.get(position).title
-        holder.txtSecondayText.text = items.get(position).number.toString()
+        holder.txtName.text = items[position].title
+        holder.txtSecondayText.text = items[position].number.toString()
 
-        //holder.root.setOnClickListener { view.onRepositoryClick(items.get(position)) }
+        holder.root.setOnClickListener { view.onPullClick(items[position]) }
     }
 
 

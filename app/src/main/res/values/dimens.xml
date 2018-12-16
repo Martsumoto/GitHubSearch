@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_margin">5dp</dimen>
+    <dimen name="avatar_padding">5dp</dimen>
     <dimen name="list_item_padding">10dp</dimen>
+    <dimen name="avatar_default_list_item_size">64dp</dimen>
+    <dimen name="issue_description_max_height">200dp</dimen>
 </resources>

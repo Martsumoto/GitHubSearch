@@ -2,4 +2,18 @@
     <string name="app_name">GitHubSearch</string>
     <string name="pull_requests">Pull Requests</string>
     <string name="issues">Issues</string>
+    <string name="issue_detail_title">Issue detail</string>
+    <string name="pull_detail_title">Pull request detail</string>
+    <string name="comments_label">Comments:</string>
+
+    <string name="read_more_label">READ MORE</string>
+    <string name="comments_load_error">Error while loading comments</string>
+    <string name="repository_load_error">Error while loading repositories</string>
+    <string name="issues_load_error">Error while loading issues</string>
+    <string name="pull_load_error">Error while loading pull requests</string>
+
+    <string name="no_comments">There are no comments</string>
+    <string name="no_repositories">No repositories found</string>
+    <string name="no_issues">No issues found</string>
+    <string name="no_pulls">No pull requests found</string>
 </resources>

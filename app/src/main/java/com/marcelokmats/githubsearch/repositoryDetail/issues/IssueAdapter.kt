@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.marcelokmats.githubsearch.R
 import com.marcelokmats.githubsearch.model.Issue
+import com.marcelokmats.githubsearch.repositoryDetail.DetailListView
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class IssueAdapter (val items : List<Issue>, val context: Context) :
+class IssueAdapter (private val items : List<Issue>, private val context: Context, private val view: DetailListView) :
     RecyclerView.Adapter<IssueAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1viewType: Int): ViewHolder {
@@ -22,9 +23,9 @@ class IssueAdapter (val items : List<Issue>, val context: Context) :
 
     override fun onBindViewHolder(holder: IssueAdapter.ViewHolder, position: Int) {
         holder.txtName.text = items.get(position).title
-        holder.txtSecondayText.text = items.get(position).number.toString()
+        holder.txtSecondayText.text = items[position].number.toString()
 
-        //holder.root.setOnClickListener { view.onRepositoryClick(items.get(position)) }
+        holder.root.setOnClickListener { view.onIssueClick(items[position]) }
     }
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {

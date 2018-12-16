@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.marcelokmats.githubsearch.R
 import com.marcelokmats.githubsearch.searchRepository.SearchActivity
-import kotlinx.android.synthetic.main.detail_activity.*
+import kotlinx.android.synthetic.main.detail_list_activity.*
 
-class DetailActivity  : AppCompatActivity() {
+class DetailListActivity  : AppCompatActivity() {
 
     enum class Type{
         ISSUE,
@@ -17,19 +17,21 @@ class DetailActivity  : AppCompatActivity() {
 
     companion object {
         val FRAGMENT_TYPE = "FRAGMENT_TYPE"
+        const val ISSUE = "ISSUE"
+        const val PULL = "PULL"
     }
 
     private lateinit var mDetailViewModel : DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.detail_activity)
+        setContentView(R.layout.detail_list_activity)
         setupBottomNavigationView()
         mDetailViewModel =
                 ViewModelProviders.of(this,
                     DetailViewModelFactory(intent.getParcelableExtra(SearchActivity.REPOSITORY)))
                     .get(DetailViewModel::class.java)
-        addFragment(DetailListFragment())
+        addFragment(DetailListFragment.newInstance(Type.ISSUE))
 
     }
 
