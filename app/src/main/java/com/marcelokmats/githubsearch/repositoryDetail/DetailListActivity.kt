@@ -23,16 +23,27 @@ class DetailListActivity  : AppCompatActivity() {
 
     private lateinit var mDetailViewModel : DetailViewModel
 
+    var mSelectedFragment : Int = Type.ISSUE.ordinal
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_list_activity)
         setupBottomNavigationView()
+
+        if (savedInstanceState != null) {
+            mSelectedFragment = savedInstanceState.getInt(FRAGMENT_TYPE)
+        }
         mDetailViewModel =
                 ViewModelProviders.of(this,
                     DetailViewModelFactory(intent.getParcelableExtra(SearchActivity.REPOSITORY)))
                     .get(DetailViewModel::class.java)
-        addFragment(DetailListFragment.newInstance(Type.ISSUE))
+        addFragment(DetailListFragment.newInstance(Type.values()[mSelectedFragment]))
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt(FRAGMENT_TYPE, mSelectedFragment)
     }
 
     override fun onResume() {
@@ -46,10 +57,12 @@ class DetailListActivity  : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.action_issues -> {
+                    mSelectedFragment = Type.ISSUE.ordinal
                     val fragment = DetailListFragment.newInstance(Type.ISSUE)
                     addFragment(fragment)
                 }
                 R.id.action_pull_requests -> {
+                    mSelectedFragment = Type.PULL.ordinal
                     val fragment = DetailListFragment.newInstance(Type.PULL)
                     addFragment(fragment)
                 }
